@@ -2,7 +2,8 @@ import os
 import numpy as np
 import pandas as pd
 from sklearn.naive_bayes import GaussianNB
-from sklearn.preprocessing import OneHotEncoder
+import sklearn.preprocessing as pp
+from sklearn import metrics
 
 if __name__ == '__main__':
 
@@ -27,7 +28,28 @@ if __name__ == '__main__':
     df = pd.read_csv('adult.data', names=['age', 'workclass', 'fnlwgt', 'education', 'education-number',
                                           'marital-status', 'occupation', 'relationship', 'race', 'sex', 'capital-gain',
                                           'capital-loss', 'hours-per-week', 'native-country', 'income'])
+    df2 = pd.read_csv('adult.test', names=['age', 'workclass', 'fnlwgt', 'education', 'education-number',
+                                          'marital-status', 'occupation', 'relationship', 'race', 'sex', 'capital-gain',
+                                          'capital-loss', 'hours-per-week', 'native-country', 'income'])
     y = df['income']
     X = df.drop(labels='income',axis=1)
-    print(type(df['workclass'][0]))
+    y_test = df['income']
+    X_test = df.drop(labels='income', axis=1)
+    le = pp.LabelEncoder()
+    enc = pp.OneHotEncoder(handle_unknown='ignore')
+    enc2 = pp.OneHotEncoder(handle_unknown='ignore')
+    # le.fit(X['workclass'])
+    # X['workclass'] = le.fit_transform(X['workclass'])
+    # print(le.inverse_transform(X['workclass']))
+    X_2 = enc.fit(X)
+    X_2 = enc.transform(X).toarray()
+    X2_test = enc.fit(X_test)
+    X2_test = enc.transform(X_test).toarray()
+    gnb = GaussianNB()
+    gnb.fit(X_2, y)
+
+    y_pred = gnb.predict(X2_test)
+    print("Gaussian Naive Bayes model accuracy(in %):", metrics.accuracy_score(y_test, y_pred)*100)
+
+
 
