@@ -19,9 +19,9 @@ if __name__ == '__main__':
     print(X[0])
     print(X[:,0])
 
-    # convert age to int
+    # convert age to float
     for x in X[:,0]:
-        x = int(x)
+        x = float(x)
 
     enc = OneHotEncoder(handle_unknown='ignore')
     enc.fit(X)
