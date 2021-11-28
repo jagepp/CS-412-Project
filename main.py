@@ -37,10 +37,7 @@ if __name__ == '__main__':
     X_test = df.drop(labels='income', axis=1)
     le = pp.LabelEncoder()
     enc = pp.OneHotEncoder(handle_unknown='ignore')
-    enc2 = pp.OneHotEncoder(handle_unknown='ignore')
-    # le.fit(X['workclass'])
-    # X['workclass'] = le.fit_transform(X['workclass'])
-    # print(le.inverse_transform(X['workclass']))
+
     X_2 = enc.fit(X)
     X_2 = enc.transform(X).toarray()
     X2_test = enc.fit(X_test)
