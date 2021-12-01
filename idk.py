@@ -52,7 +52,6 @@ gnb.fit(X_train, y_train)
 y_pred = gnb.predict(X_test)
 print("Gaussian Naive Bayes model accuracy(in %):", metrics.accuracy_score(y_test, y_pred)*100)
 
-
 model = LogisticRegression(solver='lbfgs',max_iter = 10000)
 model.fit(X_train, y_train)
 y_hat = model.predict(X_test)
